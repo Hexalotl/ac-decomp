@@ -42,8 +42,6 @@ RUN mkdir -p /N64_SDK/ultra/usr/
 RUN git clone https://github.com/decompals/ultralib.git /N64_SDK/ultra/usr/
 ## dockerfile does not seem to support extglob, so this monstrous command works around it to delete all of ultralib except the headers we need.
 RUN cd /N64_SDK/ultra/usr/ && find -type f -maxdepth 1 -delete && find . -not -name 'include' -type d -maxdepth 1 -exec rm -r "{}" \;
-## modify Gpopmtx's param member to be unsigned int
-RUN sed -i 's/unsigned char	param:8;/unsigned int	param:8;/g' /N64_SDK/ultra/usr/include/PR/gbi.h
 
 # --- set up work directory and env vars ---
 RUN mkdir /ac-decomp
