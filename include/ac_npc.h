@@ -8,6 +8,7 @@
 #include "m_npc_schedule.h"
 #include "m_actor_dlftbls.h"
 #include "m_npc.h"
+#include "c_keyframe.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,7 +17,7 @@ extern "C" {
 #define aNPC_SPNPC_BIT_CURATOR 0
 #define aNPC_SPNPC_BIT_GOHOME_NPC 1
 #define aNPC_SPNPC_BIT_MASK_CAT 2
-#define aNPC_SPNPC_BIT_CASTAWAY 4
+#define aNPC_SPNPC_BIT_DOZAEMON 4
 #define aNPC_SPNPC_BIT_EV_SONCHO 5
 
 #define aNPC_SPNPC_BIT_GET(field, bit) (((field) >> (bit)) & 1)
@@ -137,19 +138,25 @@ typedef struct npc_info_s {
   mActor_name_t npc_name;
 } NpcActorInfo_c;
 
+typedef struct npc_animation_s {
+  cKF_SkeletonInfo_R_c keyframe;
+  s_xyz work[27];
+  s_xyz morph[27];
+  int _1B4;
+  s8 animation_id; 
+} aNPC_ANIMATION_c;
+
 /* TODO: draw data */
 typedef struct npc_draw_info_s {
-  /* 0x000 */ u8 _000[0x20 - 0];
-  /* 0x020 */ f32 _20;
-  /* 0x024 */ f32 _24; 
-  /* 0x028 */ u8 _028[0x534 - 0x028];
-  /* 0x538 */ u8 _534;
-  /* 0x538 */ u8 _535;
-  /* 0x538 */ u8 _536;
-  /* 0x538 */ u8 _537;
-  /* 0x538 */ u8 _538;
-  /* 0x538 */ u8 _539;
-  /* 0x540 */ u8 _53A[0x580 - 0x53A];
+  /* 0x000 */ int main_animation_frame;
+  /* 0x004 */ int _04; // TODO: figure out where this is set
+  /* 0x008 */ int main_animation_frame_changed;
+  /* 0x00C */ int _08; // TODO: figure out where this is set
+  /* 0x010 */ int _0C; // TODO: figure out where this is set
+  /* 0x014 */ aNPC_ANIMATION_c main_animation;
+  /* 0x1D0 */ aNPC_ANIMATION_c sub_animation0;
+  /* 0x38C */ aNPC_ANIMATION_c sub_animation1;
+  /* 0x548 */ u8 _548[0x580 - 0x548];
   /* 0x580 */ int animation_id;
   /* 0x584 */ int texture_bank_idx;
   /* 0x588 */ u8 _588[0x5BD - 0x588]; 
@@ -157,7 +164,6 @@ typedef struct npc_draw_info_s {
   /* 0x5BE */ u8 _5BE;
   /* 0x5BE */ u8 _5BF[0x630 - 0x5BF];
 } aNPC_draw_info_c;
-
 
 typedef void (*aNPC_THINK_PROC)(NPC_ACTOR*, GAME_PLAY*, int);
 
@@ -423,6 +429,11 @@ typedef struct npc_control_actor_s {
   aNPC_cloth_c cloth[10];
   u8 _8F4[0x9D8 - 0x8F4]; // TODO
 } NPC_CONTROL_ACTOR;
+
+typedef struct npc_destruct_table_proc{
+    aNPC_SUB_PROC unk0;
+    aNPC_SUB_PROC unk4;
+}NPC_DT_PROCS;
 
 extern ACTOR_PROFILE Npc_Profile;
 

@@ -1858,7 +1858,7 @@ extern int mNT_check_unknown(mActor_name_t item_no);
 #define SP_NPC_SONCHO_D078 (SP_NPC_START + 120) // D078
 #define SP_NPC_SONCHO_D079 (SP_NPC_START + 121) // D079
 #define SP_NPC_SASHO (SP_NPC_START + 122) // D07A
-//
+#define SP_NPC_CASTAWAY (SP_NPC_START + 123) // D07B
 #define SP_NPC_MAJIN_D07C (SP_NPC_START + 124) // D07C
 #define SP_NPC_MAJIN_D07D (SP_NPC_START + 125) // D07D
 #define SP_NPC_MAJIN_BROTHER (SP_NPC_START + 126) // D07E
@@ -2164,6 +2164,7 @@ extern int mNT_check_unknown(mActor_name_t item_no);
 #define DUMMY_TAMA 0xF110
 #define DUMMY_DOUZOU 0xF11D
 #define DUMMY_NAMEPLATE 0xF11F
+#define DUMMY_BOAT 0xF128
 
 #define RSV_DOOR 0xFE1B
 #define RSV_FE1C 0xFE1C
